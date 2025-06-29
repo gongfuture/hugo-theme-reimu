@@ -156,8 +156,8 @@ rss:
 
 # Sort order configuration
 # Available values: time, time-reverse, weight, weight-reverse
-# time: sorted by time in ascending order (default)
-# time-reverse: sorted by time in descending order
+# time: sorted by time in descending order (newest first)
+# time-reverse: sorted by time in ascending order (oldest first, default)
 # weight: sorted by weight in ascending order
 # weight-reverse: sorted by weight in descending order
 sort_order:
