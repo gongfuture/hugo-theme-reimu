@@ -2,7 +2,7 @@
 {{- $ctx := .ctx -}}
 {{- $type := $ctx.Type -}}
 
-{{- $sort_config := "time" -}}
+{{- $sort_config := "time-reverse" -}}
 {{- if eq $type "categories" -}}
   {{- $sort_config = $ctx.Site.Params.sort_order.taxonomy.category -}}
 {{- else if eq $type "tags" -}}

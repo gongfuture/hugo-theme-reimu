@@ -1,6 +1,6 @@
 {{- define "main" -}}
   {{- $sort_config := .Site.Params.sort_order.archive -}}
-  {{- $paginator := (.Paginate (where .Page.Site.RegularPages "Section" "in" .Site.Params.mainSections)).Pages.GroupByDate .Site.Params.yearFormat -}}
+  {{- $paginator := (.Paginate (where .Page.Site.RegularPages "Section" "in" .Site.Params.mainSections)).Pages.GroupByDate .Site.Params.yearFormat "desc" -}}
   {{- if eq $sort_config "weight" -}}
     {{- $paginator = (.Paginate (where .Page.Site.RegularPages "Section" "in" .Site.Params.mainSections)).Pages.ByWeight -}}
   {{- else if eq $sort_config "weight-reverse" -}}

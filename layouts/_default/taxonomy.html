@@ -8,7 +8,7 @@
     {{- $sort_config = .Site.Params.sort_order.taxonomy.tag -}}
   {{- end -}}
 
-  {{- $paginator := .Paginator.Pages.GroupByDate .Site.Params.yearFormat -}}
+  {{- $paginator := .Paginator.Pages.GroupByDate .Site.Params.yearFormat "desc" -}}
   {{- if eq $sort_config "weight" -}}
     {{- $paginator = .Paginator.Pages.ByWeight -}}
   {{- else if eq $sort_config "weight-reverse" -}}
@@ -16,6 +16,7 @@
   {{- else if eq $sort_config "time" -}}
     {{- $paginator = .Paginator.Pages.GroupByDate .Site.Params.yearFormat "asc" -}}
   {{- end -}}
+
   <div
     class="archives-outer-wrap"
     data-aos="{{ .Site.Params.animation.options.archive.whole }}"
