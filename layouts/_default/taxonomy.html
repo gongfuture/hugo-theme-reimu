@@ -1,7 +1,7 @@
 {{- define "main" -}}
   {{- $type := .Type -}}
 
-  {{- $sort_config := "time" -}}
+  {{- $sort_config := "time-reverse" -}}
   {{- if eq $type "categories" -}}
     {{- $sort_config = .Site.Params.sort_order.taxonomy.category -}}
   {{- else if eq $type "tags" -}}
@@ -13,7 +13,7 @@
     {{- $paginator = .Paginator.Pages.ByWeight -}}
   {{- else if eq $sort_config "weight-reverse" -}}
     {{- $paginator = .Paginator.Pages.ByWeight.Reverse -}}
-  {{- else if eq $sort_config "time-reverse" -}}
+  {{- else if eq $sort_config "time" -}}
     {{- $paginator = .Paginator.Pages.GroupByDate .Site.Params.yearFormat "asc" -}}
   {{- end -}}
   <div
