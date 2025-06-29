@@ -11,7 +11,7 @@
   {{- $sort_config = $ctx.Site.Params.sort_order.archive -}}
 {{- end -}}
 
-{{- if or (eq $sort_config "weight") (eq $sort_config "weight-reverse") (eq $sort_config "time-reverse") -}}
+{{- if or (eq $sort_config "weight") (eq $sort_config "weight-reverse") -}}
   <section class="archives-wrap" data-aos="{{ $ctx.Site.Params.animation.options.archive.section }}">
     <ul>
       {{- range $paginator -}}
