@@ -51,7 +51,7 @@
       {{- partial "post.html"  (dict "index" $k "ctx" . "page" $v ) -}}
     {{- end -}}
   {{- else if eq $sort_config "time-reverse" -}}
-    {{- range $k, $v := $paginator.Pages.ByDate.Reverse -}}
+    {{- range $k, $v := $paginator.Pages.ByDate-}}
       {{- partial "post.html" (dict "index" $k "ctx" . "page" $v ) -}}
     {{- end -}}
   {{- else -}}
