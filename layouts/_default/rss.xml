@@ -25,7 +25,7 @@
     {{- $page := . }}
     {{- $skip := false }}
     {{- range $prefixes }}
-      {{- if hasPrefix $page.RelPermalink . }}{{ $skip = true }}{{ end }}
+      {{- if hasPrefix $page.Path . }}{{ $skip = true }}{{ end }}
     {{- end }}
     {{- if not $skip }}{{ $kept = $kept | append $page }}{{ end }}
   {{- end }}
