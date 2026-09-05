@@ -17,6 +17,21 @@
 {{- end }}
 
 {{- $pages = $pages.ByLastmod.Reverse }}
+
+{{- with .Site.Params.rss.exclude }}
+  {{- $kept := slice }}
+  {{- $prefixes := . }}
+  {{- range $pages }}
+    {{- $page := . }}
+    {{- $skip := false }}
+    {{- range $prefixes }}
+      {{- if hasPrefix $page.RelPermalink . }}{{ $skip = true }}{{ end }}
+    {{- end }}
+    {{- if not $skip }}{{ $kept = $kept | append $page }}{{ end }}
+  {{- end }}
+  {{- $pages = $kept }}
+{{- end }}
+
 {{- $limit := .Site.Params.rss.limit | default 10 }}
 {{- if ge $limit 1 }}
   {{- $pages = $pages | first $limit }}
