@@ -12,11 +12,19 @@
   {{- with $.Site.Params.paginate.archive -}}
     {{- $pageSize = . -}}
   {{- end -}}
+  {{- /* a term page gets its own surface (categories or tags), which also
+       inherits every taxonomy exclusion; the taxonomy index page keeps the
+       umbrella surface */ -}}
+  {{- $surface := "taxonomy" -}}
+  {{- if eq .Kind "term" -}}
+    {{- $surface = .Data.Plural -}}
+  {{- end -}}
+  {{- $posts := partial "helpers/posts.html" (dict "ctx" . "surface" $surface "pages" .Pages) -}}
   {{- $paginator := "" -}}
   {{- if gt $pageSize 0 -}}
-    {{- $paginator = .Paginate .Pages $pageSize -}}
+    {{- $paginator = .Paginate $posts $pageSize -}}
   {{- else -}}
-    {{- $paginator = .Paginate .Pages -}}
+    {{- $paginator = .Paginate $posts -}}
   {{- end -}}
 
   {{- $sortedPages := $paginator.Pages.GroupByDate .Site.Params.yearFormat "desc" -}}

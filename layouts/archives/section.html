@@ -4,11 +4,12 @@
   {{- with $.Site.Params.paginate.archive -}}
     {{- $pageSize = . -}}
   {{- end -}}
+  {{- $posts := partialCached "helpers/posts.html" (dict "ctx" . "surface" "archive") "archive" .Site.Language.Lang -}}
   {{- $paginator := "" -}}
   {{- if gt $pageSize 0 -}}
-    {{- $paginator = .Paginate (where .Page.Site.RegularPages "Section" "in" .Site.Params.mainSections) $pageSize -}}
+    {{- $paginator = .Paginate $posts $pageSize -}}
   {{- else -}}
-    {{- $paginator = .Paginate (where .Page.Site.RegularPages "Section" "in" .Site.Params.mainSections) -}}
+    {{- $paginator = .Paginate $posts -}}
   {{- end -}}
   
   {{- $sortedPages := $paginator.Pages.GroupByDate .Site.Params.yearFormat "desc" -}}

@@ -4,11 +4,12 @@
   {{- with $.Site.Params.paginate.post -}}
     {{- $pageSize = . -}}
   {{- end -}}
+  {{- $posts := partialCached "helpers/posts.html" (dict "ctx" . "surface" "home") "home" .Site.Language.Lang -}}
   {{- $paginator := "" -}}
   {{- if gt $pageSize 0 -}}
-    {{- $paginator = .Paginate (where .Site.RegularPages "Section" "in" .Site.Params.mainSections) $pageSize -}}
+    {{- $paginator = .Paginate $posts $pageSize -}}
   {{- else -}}
-    {{- $paginator = .Paginate (where .Site.RegularPages "Section" "in" .Site.Params.mainSections) -}}
+    {{- $paginator = .Paginate $posts -}}
   {{- end -}}
   {{- $sort_config := .Site.Params.sort_order.home -}}
   {{- if and (eq 1 $paginator.PageNumber) ($ctx.Site.Params.home_categories.enable) -}}
@@ -44,7 +45,11 @@
                 {{- end -}}
               {{- end -}}
               <h2>{{ $v.categories }}</h2>
-              <h3>{{ i18n "home_categories.count" (len (index $ctx.Site.Taxonomies.categories (lower $v.categories))) }}</h3>
+              {{- $count := 0 -}}
+              {{- with index $ctx.Site.Taxonomies.categories (lower $v.categories) -}}
+                {{- $count = len (intersect .Pages $posts) -}}
+              {{- end -}}
+              <h3>{{ i18n "home_categories.count" $count }}</h3>
             </div>
           </div>
         {{- end -}}
